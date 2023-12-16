@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { useForm, Head } from "@inertiajs/vue3";
+import type { IChirp } from "@/types/chirp";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Chirp from "@/Components/Chirp.vue";
+
+interface Props {
+    chirps: IChirp[];
+}
+
+defineProps<Props>();
 
 const form = useForm({
     message: "",
@@ -26,10 +34,14 @@ const form = useForm({
                     placeholder="What's on your mind?"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                 />
-                
+
                 <InputError :message="form.errors.message" class="mt-2" />
                 <PrimaryButton class="mt-4">Chirp</PrimaryButton>
             </form>
+
+            <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+                <Chirp v-for="chirp in chirps" :key="chirp.id" :chirp="chirp" />
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>
