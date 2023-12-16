@@ -2,7 +2,8 @@ import { IUser } from "./user";
 
 export interface IChirp {
     id: number;
+    user: IUser;
     message: string;
     created_at: string;
-    user: IUser;
+    updated_at: string;
 }
